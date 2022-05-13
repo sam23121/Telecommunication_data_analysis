@@ -1,4 +1,4 @@
-name: Python-Package-Structure
+name: Telcom_data_analysis
 on: 
   push:
     branches:

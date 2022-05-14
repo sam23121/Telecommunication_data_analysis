@@ -14,10 +14,11 @@ def loadData():
     print("loading started ")
     dataframe = pd.read_csv(r"C:\Users\sam\Desktop\Telecommunication_data_analysis\data\cleaned_data.csv")
     dataframe2 = pd.read_csv(r"C:\Users\sam\Desktop\Telecommunication_data_analysis\data\all_scores.csv")
+    dataframe3 = pd.read_csv(r"C:\Users\sam\Desktop\Telecommunication_data_analysis\data\Experience_data.csv")
     print("loading completed")
-    return dataframe, dataframe2
+    return dataframe, dataframe2, dataframe3
 
-dataframe, dataframe2 =  loadData()
+dataframe, dataframe2, dataframe3 =  loadData()
 def selectUseroverview():
     userview1 = "Dataframe"
     st.markdown(f"## {userview1}")
@@ -89,7 +90,13 @@ def UserEngagement():
     return 
 def ExperienceAnalytics():
     exper = "Experience Analytics"
-    return exper
+    userviewre = "top ten device with the highest throughput"
+    st.markdown(f"## {userviewre}")   
+    avg_tp = dataframe3.groupby('Handset Type').agg({'AVG_TP': 'mean'}).sort_values(by=['AVG_TP'], ascending=False).head(10)
+    argestApps=avg_tp[['AVG_TP']].sum().nlargest(10)
+    fig = px.bar(argestApps,x=argestApps.index , y=argestApps.values)
+    st.plotly_chart(fig)
+    return 
 
 def SatisfactionAnalysis():
     sat = "Satisfaction Analysis"
@@ -97,6 +104,7 @@ def SatisfactionAnalysis():
     st.markdown(f"## {userviewre}")
     dataframe2['Handset Type'] = dataframe['Handset Type']
     topcust = dataframe2.groupby('Handset Type').agg({'experience_score': 'max'}).sort_values(by=['experience_score'], ascending = False).head(10)
+    
     fig = px.bar(topcust,x=topcust.index , y=topcust.values)
     st.plotly_chart(fig)
     return 

@@ -33,7 +33,7 @@ setup(
     packages=find_packages(include=['scripts', 'scripts.*']),
     test_suite='tests',
     tests_require=test_requirements,
-    url='https://github.com/sam23121/Telecommunication_data_analysis',
+    url='https://github.com/10xac/PythonPackageStructure',
     version='0.1.0',
     zip_safe=False,
 )

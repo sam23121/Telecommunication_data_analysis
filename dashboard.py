@@ -6,14 +6,14 @@ import sys
 import os
 sys.path.append(os.path.abspath(os.path.join('../')))
 
-st.set_page_config(page_title="telecom Data Analysis", layout="wide")
+st.set_page_config(page_title="Telecom Data Analysis", layout="wide")
 
 
 
 def loadData():
     print("loading started ")
     dataframe = pd.read_csv(r"C:\Users\sam\Desktop\Telecommunication_data_analysis\data\cleaned_data.csv")
-    dataframe2 = pd.read_csv(r"C:\Users\sam\Desktop\Telecommunication_data_analysis\data\cleaned_data.csv")
+    dataframe2 = pd.read_csv(r"C:\Users\sam\Desktop\Telecommunication_data_analysis\data\all_scores.csv")
     print("loading completed")
     return dataframe, dataframe2
 
@@ -89,12 +89,17 @@ def UserEngagement():
     return 
 def ExperienceAnalytics():
     exper = "Experience Analytics"
-    dataframe2.groupby('Handset Type').agg({'experience score': 'max'}).sort_values(by=['experience score'], ascending = False).head(10)
     return exper
 
 def SatisfactionAnalysis():
     sat = "Satisfaction Analysis"
-    return sat
+    userviewre = "most satisfied customers"
+    st.markdown(f"## {userviewre}")
+    dataframe2['Handset Type'] = dataframe['Handset Type']
+    topcust = dataframe2.groupby('Handset Type').agg({'experience_score': 'max'}).sort_values(by=['experience_score'], ascending = False).head(10)
+    fig = px.bar(topcust,x=topcust.index , y=topcust.values)
+    st.plotly_chart(fig)
+    return 
 
 
 st.sidebar.title("Telecom-Data-Analysis")
@@ -103,7 +108,6 @@ option = st.sidebar.selectbox('select result',('User Overview',
 if option =='User Overview':
     selectUseroverview()
 elif option == 'User Engagement analysis':
-
     UserEngagement()
 elif option == 'Experience Analytics':
     ExperienceAnalytics()

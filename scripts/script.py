@@ -1,3 +1,9 @@
+import pandas as pd
+import numpy as np
+
+
+
+
 def find_average(a_list:list)->float:
     if type(a_list) not in [list, tuple, set]:
         raise TypeError("Argument Type can only be a list, tuple or a set")
